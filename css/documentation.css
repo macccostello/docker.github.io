@@ -523,11 +523,28 @@ img.with-border {
   float: left;
 }
 
-#start-tour {
+#start-tour-container {
+  padding: 10px;
+  padding-right: 0;
   float: right;
-  margin-top: 15px;
+  vertical-align: middle;
+  text-align: center;
+}
+#start-tour {
   padding: 5px;
   cursor: pointer;
-  color: #fff;
-  border: 1px solid #ccc;
+  color: #eee;
+  border: 2px solid #eee;
+  font-size: .9em;
+  font-family: 'Geomanist', san-serif;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1;
+  width: 110px;
+  float: right;
+}
+
+#start-tour:hover {
+  opacity: .8;
+  font-color: #fff;
 }
