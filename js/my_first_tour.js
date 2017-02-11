@@ -9,13 +9,13 @@ var tour = {
       placement: "top",
       xOffset: "center",
       yOffset: "300px",
-      multipage: "true",
-      onNext: function() {
-        window.location = "/engine/swarm/admin_guide/";
-      },
       onShow: function () {
         // Hide the arrow on the first navigation bubble
         $('.hopscotch-bubble-arrow-container').css('visibility', 'hidden');
+      },
+      multipage: "true",
+      onNext: function() {
+        window.location = "/engine/swarm/admin_guide/";
       }
     },
     {
@@ -82,7 +82,8 @@ var tour = {
       content: "Use the feedback links to edit the page, provide feedback, or find out how to get support.",
       target: "feedback-links",
       placement: "left",
-      arrowOffset: "center"    },
+      arrowOffset: "center"
+    },
     {
       title: "In-page navigation",
       content: "Use the in-page navigation links to jump to specific areas within the page you are viewing.<br />This is especially helpful on pages with a lot of content.",
@@ -90,6 +91,18 @@ var tour = {
       placement: "left",
       yOffset: "100px",
       arrowOffset: "center"
+    },
+    {
+      title: "The tour is complete!",
+      content: "Thanks for checking out the new navigation features. You will now be returned to where you started.",
+      target: "main-content",
+      placement: "top",
+      xOffset: "center",
+      yOffset: "300px",
+      onShow: function () {
+        // Hide the arrow on the first navigation bubble
+        $('.hopscotch-bubble-arrow-container').css('visibility', 'hidden');
+      }
     }
   ],
   showPrevButton: true,
@@ -97,24 +110,23 @@ var tour = {
   skipIfNoElement: false,
   onEnd: function() {
     // Return them back where they came from when the tour ends
-    if (hopscotch.getState() === null) {
-      window.location = document.referrer;
-    }
+    hopscotch.endTour(true);
+    window.location = document.referrer;
   },
   onClose: function() {
     // Return them back where they came from if they end the tour early
-    if (hopscotch.getState() === "hello-hopscotch:9") {
-      window.location = document.referrer;
-    }
+    hopscotch.endTour(true);
+    window.location = document.referrer;
   }
 };
 
 // Start tour if button is pressed
 $("#start-tour").click(function(){
+  hopscotch.endTour(true);
   hopscotch.startTour(tour);
 });
 
 // Resume tour if already in progress
-if (hopscotch.getState() === "hello-hopscotch:9") {
-  hopscotch.startTour(tour);
+if (hopscotch.getState() != null) {
+  hopscotch.startTour(tour, hopscotch.getState());
 }
