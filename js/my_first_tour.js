@@ -124,6 +124,15 @@ var tour = {
 $("#start-tour").click(function(){
   hopscotch.endTour(true);
   hopscotch.startTour(tour);
+  // Only load segment on the real site
+  if (ga() != 'undefined') {
+    ga('send', {
+      hitType: 'event',
+      eventCategory: 'Tour',
+      eventAction: 'play',
+      eventLabel: 'Navigation Tour'
+    });
+  }
 });
 
 // Resume tour if already in progress
